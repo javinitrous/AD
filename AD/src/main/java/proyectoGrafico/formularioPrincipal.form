@@ -118,7 +118,6 @@
                     <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Departamentos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGestionDeparMouseClicked"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGestionDeparActionPerformed"/>
                   </Events>
                 </Component>
@@ -190,6 +189,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="tabDepartamentos">
+          <Events>
+            <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="tabDepartamentosComponentShown"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Departamentos">
@@ -202,7 +204,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelGestionDepar" max="32767" attributes="0"/>
-                  <Component id="panelDesplazamientoBBDD" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panelBusquedaBBDD" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelInsModBorr" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -211,7 +213,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelGestionDepar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelDesplazamientoBBDD" min="-2" max="-2" attributes="0"/>
+                      <Component id="panelBusquedaBBDD" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelInsModBorr" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -305,7 +307,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="panelDesplazamientoBBDD">
+            <Container class="javax.swing.JPanel" name="panelBusquedaBBDD">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -350,21 +352,33 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Primero"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrimActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSig">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Siguiente"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSigActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAnt">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Anterior"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAntActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnUlt">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&#xda;ltimo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

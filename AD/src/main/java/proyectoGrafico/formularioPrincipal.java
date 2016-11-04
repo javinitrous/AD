@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +25,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
      */
     public formularioPrincipal() {
         initComponents();
+        crearConexionBBDD();
     }
 
     /**
@@ -49,7 +53,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
         textNombreDepar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         textLocDepar = new javax.swing.JTextField();
-        panelDesplazamientoBBDD = new javax.swing.JPanel();
+        panelBusquedaBBDD = new javax.swing.JPanel();
         btnPrim = new javax.swing.JButton();
         btnSig = new javax.swing.JButton();
         btnAnt = new javax.swing.JButton();
@@ -91,11 +95,6 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelGestionDiariaPpal.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión Diaria"));
 
         botonGestionDepar.setText("Gestión de Departamentos");
-        botonGestionDepar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonGestionDeparMouseClicked(evt);
-            }
-        });
         botonGestionDepar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGestionDeparActionPerformed(evt);
@@ -190,6 +189,12 @@ public class formularioPrincipal extends javax.swing.JFrame {
 
         panelTab.addTab("Principal", tabPrincipal);
 
+        tabDepartamentos.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tabDepartamentosComponentShown(evt);
+            }
+        });
+
         panelGestionDepar.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de departamentos"));
 
         etiqIdDepar.setText("ID Departamento");
@@ -243,21 +248,41 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        panelDesplazamientoBBDD.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
+        panelBusquedaBBDD.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
         btnPrim.setText("Primero");
+        btnPrim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimActionPerformed(evt);
+            }
+        });
 
         btnSig.setText("Siguiente");
+        btnSig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigActionPerformed(evt);
+            }
+        });
 
         btnAnt.setText("Anterior");
+        btnAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAntActionPerformed(evt);
+            }
+        });
 
         btnUlt.setText("Último");
+        btnUlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout panelDesplazamientoBBDDLayout = new javax.swing.GroupLayout(panelDesplazamientoBBDD);
-        panelDesplazamientoBBDD.setLayout(panelDesplazamientoBBDDLayout);
-        panelDesplazamientoBBDDLayout.setHorizontalGroup(
-            panelDesplazamientoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDesplazamientoBBDDLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelBusquedaBBDDLayout = new javax.swing.GroupLayout(panelBusquedaBBDD);
+        panelBusquedaBBDD.setLayout(panelBusquedaBBDDLayout);
+        panelBusquedaBBDDLayout.setHorizontalGroup(
+            panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBusquedaBBDDLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPrim, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -268,11 +293,11 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addComponent(btnUlt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(197, 197, 197))
         );
-        panelDesplazamientoBBDDLayout.setVerticalGroup(
-            panelDesplazamientoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDesplazamientoBBDDLayout.createSequentialGroup()
+        panelBusquedaBBDDLayout.setVerticalGroup(
+            panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBusquedaBBDDLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelDesplazamientoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrim)
                     .addComponent(btnSig)
                     .addComponent(btnAnt)
@@ -322,7 +347,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
         tabDepartamentosLayout.setHorizontalGroup(
             tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelGestionDepar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelDesplazamientoBBDD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBusquedaBBDD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelInsModBorr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         tabDepartamentosLayout.setVerticalGroup(
@@ -330,7 +355,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
             .addGroup(tabDepartamentosLayout.createSequentialGroup()
                 .addComponent(panelGestionDepar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDesplazamientoBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelBusquedaBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelInsModBorr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -529,12 +554,34 @@ public class formularioPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/*
-    private void botonGestionDeparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGestionDeparMouseClicked
-        // TODO add your handling code here:
+/**/
+    private void crearConexionBBDD()
+    {
+        try 
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo1","root","admin");
+        }
+        catch (ClassNotFoundException | SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void mostrarDatosBBDD()
+    {
+        try
+        {
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-    }//GEN-LAST:event_botonGestionDeparMouseClicked
-*/
+    }
     private void botonGestionDeparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionDeparActionPerformed
         // TODO add your handling code here:
         panelTab.setSelectedComponent(tabDepartamentos);
@@ -546,13 +593,108 @@ public class formularioPrincipal extends javax.swing.JFrame {
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         // TODO add your handling code here:
-        panelDesplazamientoBBDD.setVisible(false);
+        panelBusquedaBBDD.setVisible(false);
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void botonGestionEmpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionEmpleActionPerformed
         // TODO add your handling code here:
         panelTab.setSelectedComponent(tabEmpleados);
     }//GEN-LAST:event_botonGestionEmpleActionPerformed
+
+    private void btnPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimActionPerformed
+        
+        try
+        {
+            if(result.isFirst() == true)
+            {
+                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
+            }
+            else
+            {
+                result.first();
+                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+                textNombreDepar.setText(result.getString("dnombre"));
+                textLocDepar.setText(result.getString("loc"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPrimActionPerformed
+
+    private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
+        try {
+            // TODO add your handling code here:
+            if(result.isLast() == true)
+            {
+                JOptionPane.showMessageDialog(null, "No hay más resultados en la base de datos.");
+            }
+            else
+            {
+                result.next();
+                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+                textNombreDepar.setText(result.getString("dnombre"));
+                textLocDepar.setText(result.getString("loc"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSigActionPerformed
+
+    private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
+        try {
+            // TODO add your handling code here:
+            if(result.isFirst() == true)
+            {
+                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
+            }
+            else
+            {
+                result.previous();
+                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+                textNombreDepar.setText(result.getString("dnombre"));
+                textLocDepar.setText(result.getString("loc"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAntActionPerformed
+
+    private void btnUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            if(result.isLast() == true)
+            {
+                JOptionPane.showMessageDialog(null,"No hay más resultados en la base de datos");
+            }
+            else
+            {
+                result.last();
+                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+                textNombreDepar.setText(result.getString("dnombre"));
+                textLocDepar.setText(result.getString("loc"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUltActionPerformed
+
+    private void tabDepartamentosComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabDepartamentosComponentShown
+        // TODO add your handling code here:
+        String query = "SELECT * FROM departamentos";
+        try
+        {
+            Statement sentencia = conexion.createStatement();
+            result = sentencia.executeQuery(query);
+                   
+            result.first();
+            mostrarDatosBBDD();
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tabDepartamentosComponentShown
 
     /**
      * @param args the command line arguments
@@ -587,20 +729,17 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 new formularioPrincipal().setVisible(true);
             }
         });
-        // ESTO TIENES QUE SEGUIR MIRÁNDOLO. NO HAS ACABADO
-        Connection conexion;
-        ResultSet result;
-        Statement sentencia;
         
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql:localhost:/bbdd_ejemplo1","root","admin");
-            sentencia = conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            result = sentencia.executeQuery("INSERT INTO departamentos VALUES(50,'MARKETING','VALENCIA')");
-        }
-        catch(SQLException | ClassNotFoundException cnfe)   {cnfe.printStackTrace();}
+        
+        // Variables para la conexión con la BBDD
+        
+        
+        
     }
+    // Mis atributos
+    Connection conexion;
+    ResultSet result;
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGestionDepar;
@@ -641,7 +780,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JPanel panelAdminEmple;
     private javax.swing.JPanel panelBusqEmple;
-    private javax.swing.JPanel panelDesplazamientoBBDD;
+    private javax.swing.JPanel panelBusquedaBBDD;
     private javax.swing.JPanel panelEtiqueta;
     private javax.swing.JPanel panelGestEmple;
     private javax.swing.JPanel panelGestionDepar;
