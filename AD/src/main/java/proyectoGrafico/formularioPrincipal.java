@@ -7,6 +7,7 @@ package proyectoGrafico;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,8 +25,9 @@ public class formularioPrincipal extends javax.swing.JFrame {
      * Creates new form formularioPrincipal
      */
     public formularioPrincipal() {
+        
         initComponents();
-        crearConexionBBDD();
+        crearConexionBD();
     }
 
     /**
@@ -42,7 +44,15 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelGestionDiariaPpal = new javax.swing.JPanel();
         botonGestionDepar = new javax.swing.JButton();
         botonGestionEmple = new javax.swing.JButton();
+        botonGestionInformes = new javax.swing.JButton();
         panelMantenimientoDiarioPpal = new javax.swing.JPanel();
+        panelGestionBD = new javax.swing.JPanel();
+        btnCrearTablaBD = new javax.swing.JButton();
+        btnInsertarDatosBD = new javax.swing.JButton();
+        btnBorrarBD = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         panelEtiqueta = new javax.swing.JPanel();
         etiquetaGestion = new javax.swing.JLabel();
         tabDepartamentos = new javax.swing.JPanel();
@@ -54,41 +64,42 @@ public class formularioPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         textLocDepar = new javax.swing.JTextField();
         panelBusquedaBBDD = new javax.swing.JPanel();
-        btnPrim = new javax.swing.JButton();
+        btnPrimero = new javax.swing.JButton();
         btnSig = new javax.swing.JButton();
         btnAnt = new javax.swing.JButton();
         btnUlt = new javax.swing.JButton();
-        panelInsModBorr = new javax.swing.JPanel();
+        panelAdministracion = new javax.swing.JPanel();
         btnInsertar = new javax.swing.JButton();
         btnModif = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
+        panelConfirmarDepartamentos = new javax.swing.JPanel();
+        btnConfirmarAceptar = new javax.swing.JButton();
+        btnConfirmarCancelar = new javax.swing.JButton();
         tabEmpleados = new javax.swing.JPanel();
-        panelGestEmple = new javax.swing.JPanel();
+        panelDatosEmple = new javax.swing.JPanel();
+        comboDirectorEmple = new javax.swing.JComboBox<>();
+        comboDepartamentoEmple = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        campoNumeroEmple = new javax.swing.JTextField();
+        campoApellidoEmple = new javax.swing.JTextField();
+        campoOficioEmple = new javax.swing.JTextField();
+        campoSalarioEmple = new javax.swing.JTextField();
+        campoComisionEmple = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        campoFechaAltaEmple = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        panelBusqEmple = new javax.swing.JPanel();
-        btnPrimEmple = new javax.swing.JButton();
-        btnSigEmple = new javax.swing.JButton();
-        btnAntEmple = new javax.swing.JButton();
-        btnUltEmple = new javax.swing.JButton();
-        panelAdminEmple = new javax.swing.JPanel();
+        btnLimpiarEmple = new javax.swing.JButton();
+        panelOtros = new javax.swing.JPanel();
+        btnConsultar = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        panelConfirmar = new javax.swing.JPanel();
         btnInsertEmple = new javax.swing.JButton();
-        btnModfEmple = new javax.swing.JButton();
-        btnBorrEmple = new javax.swing.JButton();
+        btnModifEmple = new javax.swing.JButton();
+        btnBorrarEmple = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,38 +119,99 @@ public class formularioPrincipal extends javax.swing.JFrame {
             }
         });
 
+        botonGestionInformes.setText("Gestión de informes");
+
         javax.swing.GroupLayout panelGestionDiariaPpalLayout = new javax.swing.GroupLayout(panelGestionDiariaPpal);
         panelGestionDiariaPpal.setLayout(panelGestionDiariaPpalLayout);
         panelGestionDiariaPpalLayout.setHorizontalGroup(
             panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDiariaPpalLayout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonGestionDepar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonGestionEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonGestionDepar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonGestionEmple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonGestionInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         panelGestionDiariaPpalLayout.setVerticalGroup(
             panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDiariaPpalLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
                 .addComponent(botonGestionDepar)
                 .addGap(35, 35, 35)
                 .addComponent(botonGestionEmple)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(botonGestionInformes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelMantenimientoDiarioPpal.setBorder(javax.swing.BorderFactory.createTitledBorder("Mantenimiento"));
+
+        panelGestionBD.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión Base Datos"));
+
+        btnCrearTablaBD.setText("Crear tabla BD");
+
+        btnInsertarDatosBD.setText("Insertar datos BD");
+
+        btnBorrarBD.setText("Borrar BD");
+
+        javax.swing.GroupLayout panelGestionBDLayout = new javax.swing.GroupLayout(panelGestionBD);
+        panelGestionBD.setLayout(panelGestionBDLayout);
+        panelGestionBDLayout.setHorizontalGroup(
+            panelGestionBDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGestionBDLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelGestionBDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCrearTablaBD, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInsertarDatosBD, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBorrarBD, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
+        );
+        panelGestionBDLayout.setVerticalGroup(
+            panelGestionBDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGestionBDLayout.createSequentialGroup()
+                .addComponent(btnCrearTablaBD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInsertarDatosBD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarBD))
+        );
+
+        jButton1.setText("Ejecución Script");
+
+        jButton4.setText("Ejecución Procedimientos");
+
+        jButton5.setText("Información Base Datos");
 
         javax.swing.GroupLayout panelMantenimientoDiarioPpalLayout = new javax.swing.GroupLayout(panelMantenimientoDiarioPpal);
         panelMantenimientoDiarioPpal.setLayout(panelMantenimientoDiarioPpalLayout);
         panelMantenimientoDiarioPpalLayout.setHorizontalGroup(
             panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(panelMantenimientoDiarioPpalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelGestionBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelMantenimientoDiarioPpalLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 56, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelMantenimientoDiarioPpalLayout.setVerticalGroup(
             panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelMantenimientoDiarioPpalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGestionBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         etiquetaGestion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -149,10 +221,10 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelEtiqueta.setLayout(panelEtiquetaLayout);
         panelEtiquetaLayout.setHorizontalGroup(
             panelEtiquetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEtiquetaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelEtiquetaLayout.createSequentialGroup()
+                .addGap(143, 143, 143)
                 .addComponent(etiquetaGestion)
-                .addGap(234, 234, 234))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         panelEtiquetaLayout.setVerticalGroup(
             panelEtiquetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,13 +240,13 @@ public class formularioPrincipal extends javax.swing.JFrame {
             tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(tabPrincipalLayout.createSequentialGroup()
-                        .addComponent(panelGestionDiariaPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelMantenimientoDiarioPpal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(panelGestionDiariaPpal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelMantenimientoDiarioPpal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tabPrincipalLayout.setVerticalGroup(
             tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +286,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelGestionDeparLayout.setHorizontalGroup(
             panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDeparLayout.createSequentialGroup()
-                .addGap(226, 226, 226)
+                .addGap(72, 72, 72)
                 .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelGestionDeparLayout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -234,44 +306,44 @@ public class formularioPrincipal extends javax.swing.JFrame {
             panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDeparLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etiqIdDepar)
-                    .addComponent(textIdDepart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(textIdDepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(textNombreDepar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(panelGestionDeparLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(textLocDepar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelBusquedaBBDD.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
-        btnPrim.setText("Primero");
-        btnPrim.addActionListener(new java.awt.event.ActionListener() {
+        btnPrimero.setText("|<");
+        btnPrimero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrimActionPerformed(evt);
+                btnPrimeroActionPerformed(evt);
             }
         });
 
-        btnSig.setText("Siguiente");
+        btnSig.setText(">");
         btnSig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSigActionPerformed(evt);
             }
         });
 
-        btnAnt.setText("Anterior");
+        btnAnt.setText("<");
         btnAnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAntActionPerformed(evt);
             }
         });
 
-        btnUlt.setText("Último");
+        btnUlt.setText(">|");
         btnUlt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUltActionPerformed(evt);
@@ -282,30 +354,29 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelBusquedaBBDD.setLayout(panelBusquedaBBDDLayout);
         panelBusquedaBBDDLayout.setHorizontalGroup(
             panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBusquedaBBDDLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrim, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelBusquedaBBDDLayout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(btnPrimero)
                 .addGap(18, 18, 18)
-                .addComponent(btnSig, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSig)
                 .addGap(18, 18, 18)
-                .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAnt)
                 .addGap(18, 18, 18)
-                .addComponent(btnUlt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(197, 197, 197))
+                .addComponent(btnUlt)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBusquedaBBDDLayout.setVerticalGroup(
             panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBusquedaBBDDLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelBusquedaBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrim)
+                    .addComponent(btnPrimero)
                     .addComponent(btnSig)
                     .addComponent(btnAnt)
                     .addComponent(btnUlt))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        panelInsModBorr.setBorder(javax.swing.BorderFactory.createTitledBorder("Administración"));
+        panelAdministracion.setBorder(javax.swing.BorderFactory.createTitledBorder("Administración"));
 
         btnInsertar.setText("INSERTAR");
         btnInsertar.addActionListener(new java.awt.event.ActionListener() {
@@ -315,228 +386,308 @@ public class formularioPrincipal extends javax.swing.JFrame {
         });
 
         btnModif.setText("MODIFICAR");
+        btnModif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("BORRAR");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout panelInsModBorrLayout = new javax.swing.GroupLayout(panelInsModBorr);
-        panelInsModBorr.setLayout(panelInsModBorrLayout);
-        panelInsModBorrLayout.setHorizontalGroup(
-            panelInsModBorrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInsModBorrLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(btnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
-        );
-        panelInsModBorrLayout.setVerticalGroup(
-            panelInsModBorrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInsModBorrLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelAdministracionLayout = new javax.swing.GroupLayout(panelAdministracion);
+        panelAdministracion.setLayout(panelAdministracionLayout);
+        panelAdministracionLayout.setHorizontalGroup(
+            panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdministracionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInsModBorrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAdministracionLayout.setVerticalGroup(
+            panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdministracionLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(panelAdministracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelConfirmarDepartamentos.setBorder(javax.swing.BorderFactory.createTitledBorder("Confirmación"));
+
+        btnConfirmarAceptar.setText("Aceptar");
+        btnConfirmarAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarAceptarActionPerformed(evt);
+            }
+        });
+
+        btnConfirmarCancelar.setText("Cancelar");
+        btnConfirmarCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelConfirmarDepartamentosLayout = new javax.swing.GroupLayout(panelConfirmarDepartamentos);
+        panelConfirmarDepartamentos.setLayout(panelConfirmarDepartamentosLayout);
+        panelConfirmarDepartamentosLayout.setHorizontalGroup(
+            panelConfirmarDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfirmarDepartamentosLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelConfirmarDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnConfirmarCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConfirmarAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        panelConfirmarDepartamentosLayout.setVerticalGroup(
+            panelConfirmarDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfirmarDepartamentosLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(btnConfirmarAceptar)
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirmarCancelar)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tabDepartamentosLayout = new javax.swing.GroupLayout(tabDepartamentos);
         tabDepartamentos.setLayout(tabDepartamentosLayout);
         tabDepartamentosLayout.setHorizontalGroup(
             tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGestionDepar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelBusquedaBBDD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelInsModBorr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(tabDepartamentosLayout.createSequentialGroup()
+                .addGroup(tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelGestionDepar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBusquedaBBDD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(tabDepartamentosLayout.createSequentialGroup()
+                        .addComponent(panelAdministracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelConfirmarDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         tabDepartamentosLayout.setVerticalGroup(
             tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabDepartamentosLayout.createSequentialGroup()
                 .addComponent(panelGestionDepar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBusquedaBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelInsModBorr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelAdministracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConfirmarDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         panelTab.addTab("Departamentos", tabDepartamentos);
 
-        panelGestEmple.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestión de empleados"));
+        tabEmpleados.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tabEmpleadosComponentShown(evt);
+            }
+        });
 
-        jLabel1.setText("Apellido");
+        panelDatosEmple.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Empleado"));
 
-        jLabel4.setText("Oficio");
+        comboDirectorEmple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Director >", "7902", "7698" }));
 
-        jLabel5.setText("Salario");
+        comboDepartamentoEmple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< Departamento >", "CONTABILIDAD", "INVESTIGACIÓN", "VENTAS", "PRODUCCIÓN" }));
+        comboDepartamentoEmple.setToolTipText("");
 
-        jLabel6.setText("Comisión");
+        jLabel1.setText("Número");
 
-        jLabel7.setText("Número de empleado");
+        jLabel4.setText("Apellido");
 
-        jLabel8.setText("Directorio");
+        jLabel5.setText("Oficio");
 
-        jLabel9.setText("Número de departamento");
+        jLabel6.setText("Salario");
 
-        jLabel10.setText("Fecha de alta");
+        jLabel7.setText("Comisión");
 
-        javax.swing.GroupLayout panelGestEmpleLayout = new javax.swing.GroupLayout(panelGestEmple);
-        panelGestEmple.setLayout(panelGestEmpleLayout);
-        panelGestEmpleLayout.setHorizontalGroup(
-            panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(146, 146, 146)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+        jLabel8.setText("Fecha alta");
+
+        jLabel9.setText("(yyyy-MM-dd)");
+
+        btnLimpiarEmple.setText("Limpiar campos");
+        btnLimpiarEmple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarEmpleActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDatosEmpleLayout = new javax.swing.GroupLayout(panelDatosEmple);
+        panelDatosEmple.setLayout(panelDatosEmpleLayout);
+        panelDatosEmpleLayout.setHorizontalGroup(
+            panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosEmpleLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoNumeroEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoApellidoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoOficioEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoSalarioEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoComisionEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboDepartamentoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboDirectorEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelDatosEmpleLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoFechaAltaEmple))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosEmpleLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpiarEmple)
+                .addContainerGap())
         );
-        panelGestEmpleLayout.setVerticalGroup(
-            panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGestEmpleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        panelDatosEmpleLayout.setVerticalGroup(
+            panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosEmpleLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoNumeroEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboDepartamentoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoApellidoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboDirectorEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoOficioEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(campoFechaAltaEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGestEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoSalarioEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoComisionEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLimpiarEmple)
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+
+        panelOtros.setBorder(javax.swing.BorderFactory.createTitledBorder("Otros"));
+
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        btnInicio.setText("Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelOtrosLayout = new javax.swing.GroupLayout(panelOtros);
+        panelOtros.setLayout(panelOtrosLayout);
+        panelOtrosLayout.setHorizontalGroup(
+            panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOtrosLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addGroup(panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56))
+        );
+        panelOtrosLayout.setVerticalGroup(
+            panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOtrosLayout.createSequentialGroup()
+                .addComponent(btnConsultar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInicio))
+        );
+
+        panelConfirmar.setBorder(javax.swing.BorderFactory.createTitledBorder("Confirmar"));
+
+        btnInsertEmple.setText("Insertar");
+        btnInsertEmple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertEmpleActionPerformed(evt);
+            }
+        });
+
+        btnModifEmple.setText("Modificar");
+
+        btnBorrarEmple.setText("Borrar");
+
+        javax.swing.GroupLayout panelConfirmarLayout = new javax.swing.GroupLayout(panelConfirmar);
+        panelConfirmar.setLayout(panelConfirmarLayout);
+        panelConfirmarLayout.setHorizontalGroup(
+            panelConfirmarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfirmarLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(btnInsertEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModifEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBorrarEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        panelBusqEmple.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
-
-        btnPrimEmple.setText("Primero");
-
-        btnSigEmple.setText("Siguiente");
-
-        btnAntEmple.setText("Anterior");
-
-        btnUltEmple.setText("Último");
-
-        javax.swing.GroupLayout panelBusqEmpleLayout = new javax.swing.GroupLayout(panelBusqEmple);
-        panelBusqEmple.setLayout(panelBusqEmpleLayout);
-        panelBusqEmpleLayout.setHorizontalGroup(
-            panelBusqEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBusqEmpleLayout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(btnPrimEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSigEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAntEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnUltEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelBusqEmpleLayout.setVerticalGroup(
-            panelBusqEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBusqEmpleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBusqEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSigEmple)
-                    .addComponent(btnAntEmple)
-                    .addComponent(btnUltEmple)
-                    .addComponent(btnPrimEmple))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelAdminEmple.setBorder(javax.swing.BorderFactory.createTitledBorder("Adiministración"));
-
-        btnInsertEmple.setText("INSERTAR");
-
-        btnModfEmple.setText("MODIFICAR");
-
-        btnBorrEmple.setText("BORRAR");
-
-        javax.swing.GroupLayout panelAdminEmpleLayout = new javax.swing.GroupLayout(panelAdminEmple);
-        panelAdminEmple.setLayout(panelAdminEmpleLayout);
-        panelAdminEmpleLayout.setHorizontalGroup(
-            panelAdminEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAdminEmpleLayout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btnInsertEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(btnModfEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
-                .addComponent(btnBorrEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
-        );
-        panelAdminEmpleLayout.setVerticalGroup(
-            panelAdminEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAdminEmpleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAdminEmpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInsertEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModfEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBorrEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+        panelConfirmarLayout.setVerticalGroup(
+            panelConfirmarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConfirmarLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelConfirmarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInsertEmple)
+                    .addComponent(btnModifEmple)
+                    .addComponent(btnBorrarEmple))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tabEmpleadosLayout = new javax.swing.GroupLayout(tabEmpleados);
         tabEmpleados.setLayout(tabEmpleadosLayout);
         tabEmpleadosLayout.setHorizontalGroup(
             tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabEmpleadosLayout.createSequentialGroup()
-                .addGroup(tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelGestEmple, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAdminEmple, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBusqEmple, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(tabEmpleadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelDatosEmple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelOtros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tabEmpleadosLayout.setVerticalGroup(
             tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabEmpleadosLayout.createSequentialGroup()
-                .addComponent(panelGestEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBusqEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelAdminEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(tabEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabEmpleadosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panelDatosEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelOtros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelTab.addTab("Empleados", tabEmpleados);
@@ -545,43 +696,21 @@ public class formularioPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTab)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelTab)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTab)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelTab)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 /**/
-    private void crearConexionBBDD()
-    {
-        try 
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo1","root","admin");
-        }
-        catch (ClassNotFoundException | SQLException ex) 
-        {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void mostrarDatosBBDD()
-    {
-        try
-        {
-            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
-            textNombreDepar.setText(result.getString("dnombre"));
-            textLocDepar.setText(result.getString("loc"));
-        }
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
     private void botonGestionDeparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionDeparActionPerformed
         // TODO add your handling code here:
         panelTab.setSelectedComponent(tabDepartamentos);
@@ -594,108 +723,421 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         // TODO add your handling code here:
         panelBusquedaBBDD.setVisible(false);
+        
+        textIdDepart.setEnabled(Boolean.TRUE);
+        textLocDepar.setEnabled(Boolean.TRUE);
+        textNombreDepar.setEnabled(Boolean.TRUE);
+        limpiarCamposDepartamentos();
+        panelConfirmarDepartamentos.setVisible(Boolean.TRUE);
     }//GEN-LAST:event_btnInsertarActionPerformed
+    
+    private void limpiarCamposDepartamentos()
+    {
+        textIdDepart.setText(null);
+        textLocDepar.setText(null);
+        textNombreDepar.setText(null);
+    }
+    
+    private void limpiarCamposEmpleados()
+    {
+        campoNumeroEmple.setText(null);
+        campoApellidoEmple.setText(null);
+        campoOficioEmple.setText(null);
+        campoSalarioEmple.setText(null);
+        campoComisionEmple.setText(null);
+        campoFechaAltaEmple.setText(null);
+        
+        comboDepartamentoEmple.removeAllItems();
+        comboDirectorEmple.removeAllItems();
+        comboDepartamentoEmple.addItem("Elige departamento");
+        comboDirectorEmple.addItem("Elige director");
+               
+        try 
+        {
+            Statement sentencia = conexion.createStatement();
+            String queryDepar = "SELECT dnombre FROM departamentos GROUP BY dnombre";
+            result = sentencia.executeQuery(queryDepar);
+            while(result.next())
+            {
+                comboDepartamentoEmple.addItem(result.getString("dnombre"));
+            }
+            
+            String queryDir = "SELECT dir FROM empleados GROUP BY dir";
+            result = sentencia.executeQuery(queryDir);
+            while(result.next())
+            {
+                comboDirectorEmple.addItem(result.getString("dir"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    private void tabDepartamentosComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabDepartamentosComponentShown
+        // TODO add your handling code here:
+        try 
+        {
+            panelConfirmarDepartamentos.setVisible(Boolean.FALSE);
+            
+            textIdDepart.setEnabled(Boolean.FALSE);
+            textLocDepar.setEnabled(Boolean.FALSE);
+            textNombreDepar.setEnabled(Boolean.FALSE);
+            
+            Statement sentencia = conexion.createStatement();
+            String query = "SELECT * FROM departamentos";
+            result = sentencia.executeQuery(query);
+            result.first();
+            mostrarCamposDepartamentos();
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }//GEN-LAST:event_tabDepartamentosComponentShown
+
+    private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        try 
+        {
+            // TODO add your handling code here:
+            if(result.isFirst() == true)
+            {
+                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
+            }
+            result.first();
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPrimeroActionPerformed
+
+    private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
+        try 
+        {
+            // TODO add your handling code here:
+            if(result.isLast() == true)
+            {
+                JOptionPane.showMessageDialog(null,"No hay más resultados");
+            }
+            result.next();
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSigActionPerformed
+
+    private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
+        try 
+        {
+            // TODO add your handling code here:
+            if(result.isFirst() == true)
+            {
+                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
+            }
+            result.previous();
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAntActionPerformed
+
+    private void btnUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltActionPerformed
+        try 
+        {
+            // TODO add your handling code here:
+            if(result.isLast() == true)
+            {
+                JOptionPane.showMessageDialog(null,"No hay más resultados");
+            }
+            result.last();
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnUltActionPerformed
+
+    private void btnConfirmarAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarAceptarActionPerformed
+        
+        int filasAfectadas = 0;
+        
+        if(textIdDepart.isEnabled())
+        {
+            try 
+            {
+                // TODO add your handling code here:
+                Statement sentencia = conexion.createStatement();
+                String query = String.format("INSERT INTO departamentos VALUES('%s','%s','%s' )",textIdDepart.getText(),textNombreDepar.getText(),textLocDepar.getText());
+                filasAfectadas = sentencia.executeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Información insertada correctamente.");
+            } 
+            catch (SQLException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Error al insertar la información.");
+            }
+        }
+        else
+        {
+            Statement sentencia;
+            try 
+            {
+                sentencia = conexion.createStatement();
+                String query = String.format("UPDATE departamentos SET dnombre = '%s', loc = '%s' WHERE dept_no = '%s'", textNombreDepar.getText(), textLocDepar.getText(),textIdDepart.getText());
+                sentencia.executeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Información modificada correctamente.");
+            }
+            catch (SQLException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "Error al modificar la tabla.");
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnConfirmarAceptarActionPerformed
+
+    private void btnConfirmarCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCancelarActionPerformed
+        // TODO add your handling code here:
+        //panelConfirmarDepartamentos.setVisible(Boolean.FALSE);
+        camposDepartamentosInicial();
+    }//GEN-LAST:event_btnConfirmarCancelarActionPerformed
+
+    private void btnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifActionPerformed
+        // TODO add your handling code here:
+        panelBusquedaBBDD.setVisible(true);
+        
+        textIdDepart.setEnabled(Boolean.FALSE);
+        textLocDepar.setEnabled(Boolean.TRUE);
+        textNombreDepar.setEnabled(Boolean.TRUE);
+                
+        panelConfirmarDepartamentos.setVisible(Boolean.TRUE);
+    }//GEN-LAST:event_btnModifActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+        
+        int contador = 0;
+        if(campoNumeroEmple.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún empleado");
+        }
+        else
+        {
+            try
+            {
+                String query = "SELECT * FROM empleados WHERE emp_no = ?";
+                PreparedStatement sentenciaPreparada = conexion.prepareStatement(query);
+                
+                // cargar en el preparedStatement los datos de la interfaz
+                sentenciaPreparada.setInt(1, Integer.parseInt(campoNumeroEmple.getText()));
+                result = sentenciaPreparada.executeQuery();
+                
+                while(result.next())
+                {
+                    mostrarCamposEmpleados();
+                    contador ++;
+                }
+                if(contador == 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Consulta sin resultados");
+                }
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void botonGestionEmpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionEmpleActionPerformed
         // TODO add your handling code here:
         panelTab.setSelectedComponent(tabEmpleados);
     }//GEN-LAST:event_botonGestionEmpleActionPerformed
 
-    private void btnPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimActionPerformed
+    private void tabEmpleadosComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabEmpleadosComponentShown
         
-        try
-        {
-            if(result.isFirst() == true)
-            {
-                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
-            }
-            else
-            {
-                result.first();
-                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
-                textNombreDepar.setText(result.getString("dnombre"));
-                textLocDepar.setText(result.getString("loc"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnPrimActionPerformed
-
-    private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
-        try {
-            // TODO add your handling code here:
-            if(result.isLast() == true)
-            {
-                JOptionPane.showMessageDialog(null, "No hay más resultados en la base de datos.");
-            }
-            else
-            {
-                result.next();
-                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
-                textNombreDepar.setText(result.getString("dnombre"));
-                textLocDepar.setText(result.getString("loc"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnSigActionPerformed
-
-    private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
-        try {
-            // TODO add your handling code here:
-            if(result.isFirst() == true)
-            {
-                JOptionPane.showMessageDialog(null,"Ya estás en la primera posición");
-            }
-            else
-            {
-                result.previous();
-                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
-                textNombreDepar.setText(result.getString("dnombre"));
-                textLocDepar.setText(result.getString("loc"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnAntActionPerformed
-
-    private void btnUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltActionPerformed
-        // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            if(result.isLast() == true)
-            {
-                JOptionPane.showMessageDialog(null,"No hay más resultados en la base de datos");
-            }
-            else
-            {
-                result.last();
-                textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
-                textNombreDepar.setText(result.getString("dnombre"));
-                textLocDepar.setText(result.getString("loc"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnUltActionPerformed
-
-    private void tabDepartamentosComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabDepartamentosComponentShown
-        // TODO add your handling code here:
-        String query = "SELECT * FROM departamentos";
-        try
+        comboDepartamentoEmple.removeAllItems();
+        comboDirectorEmple.removeAllItems();
+        comboDepartamentoEmple.addItem("Elige departamento");
+        comboDirectorEmple.addItem("Elige director");
+               
+        try 
         {
             Statement sentencia = conexion.createStatement();
-            result = sentencia.executeQuery(query);
-                   
+            String queryDepar = "SELECT dnombre FROM departamentos GROUP BY dnombre";
+            result = sentencia.executeQuery(queryDepar);
+            while(result.next())
+            {
+                comboDepartamentoEmple.addItem(result.getString("dnombre"));
+            }
+            
+            String queryDir = "SELECT dir FROM empleados GROUP BY dir";
+            result = sentencia.executeQuery(queryDir);
+            while(result.next())
+            {
+                comboDirectorEmple.addItem(result.getString("dir"));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }//GEN-LAST:event_tabEmpleadosComponentShown
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+        panelTab.setSelectedComponent(tabPrincipal);
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnInsertEmpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertEmpleActionPerformed
+        try 
+        {
+            // CARGAMOS EL NÚMERO DE DEPTO PARA COMPARARLO CON EL NOMBRE DE DEPTO
+            String query = String.format("SELECT dept_no FROM departamentos WHERE dnombre = '%s'",comboDepartamentoEmple.getSelectedItem());
+            Statement sentencia1 = conexion.createStatement();
+            result = sentencia1.executeQuery(query);
             result.first();
-            mostrarDatosBBDD();
+            
+            //
+            query = String.format("INSERT INTO empleados VALUES('%s','%s','%s','%s','%s','%s','%s','%s')",campoNumeroEmple.getText(),campoApellidoEmple.getText(),campoOficioEmple.getText(), comboDirectorEmple.getSelectedItem(), campoFechaAltaEmple.getText(), campoSalarioEmple.getText(), campoComisionEmple.getText(),result.getInt("dept_no"));
+            sentencia1.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "Información insertada correctamente.");
+            limpiarCamposEmpleados();
+        }
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al insertar la información.");
+        }
+    }//GEN-LAST:event_btnInsertEmpleActionPerformed
+
+    private void btnLimpiarEmpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarEmpleActionPerformed
+        // TODO add your handling code here:
+        limpiarCamposEmpleados();
+        
+    }//GEN-LAST:event_btnLimpiarEmpleActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null,"¿Deseas borrar el departamento "+textIdDepart.getText()+"?") == 0)
+        {
+            try
+            {
+                Statement sentencia = conexion.createStatement();
+                String queryDelete = String.format("DELETE FROM departamentos WHERE dept_no = '%s'",textIdDepart.getText());
+                int filasAfectadas = sentencia.executeUpdate(queryDelete);
+                JOptionPane.showMessageDialog(null, "Se han borrado "+filasAfectadas+ " filas.");
+                camposDepartamentosInicial();
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
+            
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+  
+    private void mostrarCamposEmpleados()
+    {
+        try
+        {
+            campoApellidoEmple.setText(result.getString("Apellido"));
+            campoOficioEmple.setText(result.getString("Oficio"));
+            campoSalarioEmple.setText(Double.toString(result.getDouble("Salario")));
+            campoComisionEmple.setText(Double.toString(result.getDouble("Comision")));
+            campoFechaAltaEmple.setText(result.getDate("fecha_alt").toString());
+            
+            // cargar comboDepartamentos empleados
+            comboDepartamentoEmple.removeAllItems();
+            String queryDepar = "SELECT dnombre FROM departamentos WHERE dept_no = ?";
+            PreparedStatement sentenciaPrepDepar = conexion.prepareStatement(queryDepar);
+            sentenciaPrepDepar.setInt(1,result.getInt("dept_no"));
+            ResultSet resultDepartamentos = sentenciaPrepDepar.executeQuery();
+            
+            resultDepartamentos.first();
+            comboDepartamentoEmple.addItem(resultDepartamentos.getString("dnombre"));
+            
+            // cargar comboDirectorEmple
+            comboDirectorEmple.removeAllItems();
+            String queryDir = "SELECT dir FROM empleados WHERE emp_no = ?";
+            PreparedStatement sentenciaPrepDir = conexion.prepareStatement(queryDir);
+            sentenciaPrepDir.setInt(1,result.getInt("emp_no"));
+            ResultSet resultDir = sentenciaPrepDir.executeQuery();
+            
+            resultDir.first();
+            comboDirectorEmple.addItem(resultDir.getString("dir"));
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    private void mostrarCamposDepartamentos()
+    {
+        try 
+        {
+            textIdDepart.setText(Integer.toString(result.getInt("dept_no")));
+            textNombreDepar.setText(result.getString("dnombre"));
+            textLocDepar.setText(result.getString("loc"));
         }
         catch (SQLException ex) 
         {
             Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_tabDepartamentosComponentShown
-
+    }
+    
+    private void camposDepartamentosInicial()
+    {
+        try 
+        {
+            textIdDepart.setEnabled(Boolean.FALSE);
+            textLocDepar.setEnabled(Boolean.FALSE);
+            textNombreDepar.setEnabled(Boolean.FALSE);
+            
+            Statement sentencia = conexion.createStatement();
+            String query = "SELECT * FROM departamentos";
+            result = sentencia.executeQuery(query);
+            result.first();
+            mostrarCamposDepartamentos();
+            panelConfirmarDepartamentos.setVisible(Boolean.FALSE);
+            panelBusquedaBBDD.setVisible(Boolean.TRUE);
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void crearConexionBD()
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo","root","admin");
+            //sentencia = conexion.createStatement();
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -729,39 +1171,44 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 new formularioPrincipal().setVisible(true);
             }
         });
-        
-        
-        // Variables para la conexión con la BBDD
-        
-        
-        
     }
-    // Mis atributos
-    Connection conexion;
-    ResultSet result;
-      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGestionDepar;
     private javax.swing.JButton botonGestionEmple;
+    private javax.swing.JButton botonGestionInformes;
     private javax.swing.JButton btnAnt;
-    private javax.swing.JButton btnAntEmple;
-    private javax.swing.JButton btnBorrEmple;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBorrarBD;
+    private javax.swing.JButton btnBorrarEmple;
+    private javax.swing.JButton btnConfirmarAceptar;
+    private javax.swing.JButton btnConfirmarCancelar;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnCrearTablaBD;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnInsertEmple;
     private javax.swing.JButton btnInsertar;
-    private javax.swing.JButton btnModfEmple;
+    private javax.swing.JButton btnInsertarDatosBD;
+    private javax.swing.JButton btnLimpiarEmple;
     private javax.swing.JButton btnModif;
-    private javax.swing.JButton btnPrim;
-    private javax.swing.JButton btnPrimEmple;
+    private javax.swing.JButton btnModifEmple;
+    private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnSig;
-    private javax.swing.JButton btnSigEmple;
     private javax.swing.JButton btnUlt;
-    private javax.swing.JButton btnUltEmple;
+    private javax.swing.JTextField campoApellidoEmple;
+    private javax.swing.JTextField campoComisionEmple;
+    private javax.swing.JTextField campoFechaAltaEmple;
+    private javax.swing.JTextField campoNumeroEmple;
+    private javax.swing.JTextField campoOficioEmple;
+    private javax.swing.JTextField campoSalarioEmple;
+    private javax.swing.JComboBox<String> comboDepartamentoEmple;
+    private javax.swing.JComboBox<String> comboDirectorEmple;
     private javax.swing.JLabel etiqIdDepar;
     private javax.swing.JLabel etiquetaGestion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -770,23 +1217,17 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JPanel panelAdminEmple;
-    private javax.swing.JPanel panelBusqEmple;
+    private javax.swing.JPanel panelAdministracion;
     private javax.swing.JPanel panelBusquedaBBDD;
+    private javax.swing.JPanel panelConfirmar;
+    private javax.swing.JPanel panelConfirmarDepartamentos;
+    private javax.swing.JPanel panelDatosEmple;
     private javax.swing.JPanel panelEtiqueta;
-    private javax.swing.JPanel panelGestEmple;
+    private javax.swing.JPanel panelGestionBD;
     private javax.swing.JPanel panelGestionDepar;
     private javax.swing.JPanel panelGestionDiariaPpal;
-    private javax.swing.JPanel panelInsModBorr;
     private javax.swing.JPanel panelMantenimientoDiarioPpal;
+    private javax.swing.JPanel panelOtros;
     private javax.swing.JTabbedPane panelTab;
     private javax.swing.JPanel tabDepartamentos;
     private javax.swing.JPanel tabEmpleados;
@@ -795,4 +1236,10 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField textLocDepar;
     private javax.swing.JTextField textNombreDepar;
     // End of variables declaration//GEN-END:variables
+
+    
+    Connection conexion;
+    ResultSet result;
+    
+    
 }
