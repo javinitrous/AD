@@ -5,6 +5,10 @@
  */
 package proyectoGrafico;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,9 +55,9 @@ public class formularioPrincipal extends javax.swing.JFrame {
         btnCrearTablaBD = new javax.swing.JButton();
         btnInsertarDatosBD = new javax.swing.JButton();
         btnBorrarBD = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnScripts = new javax.swing.JButton();
+        btnProcedim = new javax.swing.JButton();
+        btnInfoBBDD = new javax.swing.JButton();
         panelEtiqueta = new javax.swing.JPanel();
         etiquetaGestion = new javax.swing.JLabel();
         tabDepartamentos = new javax.swing.JPanel();
@@ -100,6 +105,11 @@ public class formularioPrincipal extends javax.swing.JFrame {
         btnInsertEmple = new javax.swing.JButton();
         btnModifEmple = new javax.swing.JButton();
         btnBorrarEmple = new javax.swing.JButton();
+        tabScripts = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ventanaSeleccion = new javax.swing.JTextArea();
+        btnExecute = new javax.swing.JButton();
+        btnBrowse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,17 +136,17 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelGestionDiariaPpalLayout.setHorizontalGroup(
             panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDiariaPpalLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(46, 46, 46)
                 .addGroup(panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonGestionDepar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonGestionEmple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonGestionInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         panelGestionDiariaPpalLayout.setVerticalGroup(
             panelGestionDiariaPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGestionDiariaPpalLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(36, 36, 36)
                 .addComponent(botonGestionDepar)
                 .addGap(35, 35, 35)
                 .addComponent(botonGestionEmple)
@@ -175,7 +185,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelGestionBDLayout.setHorizontalGroup(
             panelGestionBDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGestionBDLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelGestionBDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCrearTablaBD, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInsertarDatosBD, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,15 +199,19 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnInsertarDatosBD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBorrarBD)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(btnBorrarBD))
         );
 
-        jButton1.setText("Ejecución Script");
+        btnScripts.setText("Scripts");
+        btnScripts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScriptsActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Ejecución Procedimientos");
+        btnProcedim.setText("Ejecución Procedimientos");
 
-        jButton5.setText("Información Base Datos");
+        btnInfoBBDD.setText("Información Base Datos");
 
         javax.swing.GroupLayout panelMantenimientoDiarioPpalLayout = new javax.swing.GroupLayout(panelMantenimientoDiarioPpal);
         panelMantenimientoDiarioPpal.setLayout(panelMantenimientoDiarioPpalLayout);
@@ -205,15 +219,16 @@ public class formularioPrincipal extends javax.swing.JFrame {
             panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMantenimientoDiarioPpalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelGestionBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMantenimientoDiarioPpalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                    .addComponent(panelGestionBD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelMantenimientoDiarioPpalLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnScripts, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProcedim, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnInfoBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 56, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelMantenimientoDiarioPpalLayout.setVerticalGroup(
             panelMantenimientoDiarioPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,12 +236,12 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelGestionBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnScripts)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnProcedim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(btnInfoBBDD)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         etiquetaGestion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -268,9 +283,10 @@ public class formularioPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabPrincipalLayout.createSequentialGroup()
                 .addComponent(panelEtiqueta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGestionDiariaPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelMantenimientoDiarioPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(tabPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelMantenimientoDiarioPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelGestionDiariaPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelTab.addTab("Principal", tabPrincipal);
@@ -471,7 +487,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addComponent(btnConfirmarAceptar)
                 .addGap(18, 18, 18)
                 .addComponent(btnConfirmarCancelar)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tabDepartamentosLayout = new javax.swing.GroupLayout(tabDepartamentos);
@@ -486,7 +502,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
                         .addComponent(panelAdministracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelConfirmarDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         tabDepartamentosLayout.setVerticalGroup(
             tabDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,12 +642,12 @@ public class formularioPrincipal extends javax.swing.JFrame {
         panelOtros.setLayout(panelOtrosLayout);
         panelOtrosLayout.setHorizontalGroup(
             panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOtrosLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOtrosLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(56, 56, 56))
         );
         panelOtrosLayout.setVerticalGroup(
             panelOtrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -675,7 +691,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
                     .addComponent(btnInsertEmple)
                     .addComponent(btnModifEmple)
                     .addComponent(btnBorrarEmple))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tabEmpleadosLayout = new javax.swing.GroupLayout(tabEmpleados);
@@ -698,13 +714,60 @@ public class formularioPrincipal extends javax.swing.JFrame {
                     .addGroup(tabEmpleadosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(panelDatosEmple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelOtros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         panelTab.addTab("Empleados", tabEmpleados);
+
+        ventanaSeleccion.setColumns(20);
+        ventanaSeleccion.setRows(5);
+        jScrollPane1.setViewportView(ventanaSeleccion);
+
+        btnExecute.setText("Ejecutar");
+        btnExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecuteActionPerformed(evt);
+            }
+        });
+
+        btnBrowse.setText("Explorar");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout tabScriptsLayout = new javax.swing.GroupLayout(tabScripts);
+        tabScripts.setLayout(tabScriptsLayout);
+        tabScriptsLayout.setHorizontalGroup(
+            tabScriptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabScriptsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabScriptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabScriptsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBrowse)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExecute)))
+                .addContainerGap())
+        );
+        tabScriptsLayout.setVerticalGroup(
+            tabScriptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabScriptsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabScriptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExecute)
+                    .addComponent(btnBrowse))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        panelTab.addTab("Scripts", tabScripts);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1066,7 +1129,71 @@ public class formularioPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    private void btnScriptsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScriptsActionPerformed
+        // TODO add your handling code here:
+        panelTab.setSelectedComponent(tabScripts);
+    }//GEN-LAST:event_btnScriptsActionPerformed
+
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
+        FileReader fr = null;
+        try {
+            // TODO add your handling code here:
+            JFileChooser ventana = new JFileChooser();
+            ventana.showOpenDialog(btnBrowse);
+            fr = new FileReader(ventana.getSelectedFile());
+            
+            BufferedReader br = new BufferedReader(fr);
+            
+            String linea = null;
+            String salto = System.getProperty("line.separator");
+            
+            StringBuilder constructorString = new StringBuilder();
+            while((linea = br.readLine()) != null)
+            {
+                constructorString.append(linea);
+                constructorString.append(salto);
+            }
+            
+            ventanaSeleccion.setText(constructorString.toString());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fr.close();
+            } catch (IOException ex) {
+                Logger.getLogger(formularioPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnBrowseActionPerformed
+
+    private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecuteActionPerformed
+        // TODO add your handling code here:
+        try 
+        {
+            if(ventanaSeleccion.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "Selecciona un script antes, por favor.");
+            }
+            else
+            {
+                Statement sentencia = conexion.createStatement();
+                String query = ventanaSeleccion.getText();
+                sentencia.executeLargeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Script ejecutado correctamente.");
+                sentencia.close();
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, "Error al ejecutar el script.");
+        }
+                
+    }//GEN-LAST:event_btnExecuteActionPerformed
+
     private void btnCrearTablaBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTablaBDActionPerformed
+        // TODO add your handling code here:
         int resultadoCrearDepar = 0;
         int resultadoCrearEmple = 0;
         try
@@ -1076,67 +1203,61 @@ public class formularioPrincipal extends javax.swing.JFrame {
             String queryEmple = "CREATE TABLE empleados (emp_no SMALLINT(4) NOT NULL PRIMARY KEY, apellido VARCHAR(10), oficio VARCHAR(10), dir SMALLINT, fecha_alt DATE, salario FLOAT, comision FLOAT, dept_no TINYINT(2) NOT NULL, CONSTRAINT FK_DEP FOREIGN KEY (dept_no) REFERENCES departamentos (dept_no)) ENGINE=InnoDB";
             resultadoCrearDepar = sentencia.executeUpdate(queryDepar);
             resultadoCrearEmple = sentencia.executeUpdate(queryEmple);
-            JOptionPane.showMessageDialog(null, "Tabla creada correctamente. Código: ." +resultadoCrearDepar);
-            JOptionPane.showMessageDialog(null, "Tabla creada correctamente. Código: ." +resultadoCrearEmple);
+            JOptionPane.showMessageDialog(null, "Tablas creadas correctamente.");
         }
         catch (SQLException ex)
         {
             JOptionPane.showMessageDialog(null, "Error al crear la tabla. Tablas creadas: "+resultadoCrearDepar);
-            JOptionPane.showMessageDialog(null, "Error al crear la tabla. Tablas creadas: "+resultadoCrearEmple);
         }
     }//GEN-LAST:event_btnCrearTablaBDActionPerformed
 
     private void btnInsertarDatosBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarDatosBDActionPerformed
         // TODO add your handling code here:
-        int resultadoInsert1 = 0;
-        int resultadoInsert2 = 0;
-        int resultadoInsert3 = 0;
-        int resultadoInsert4 = 0;
+        
         try
         {
             Statement sentencia = conexion.createStatement();
-            String queryInsert1 = "INSERT INTO departamentos VALUES (10,'CONTABILIDAD','SEVILLA')";
-            String queryInsert2 = "INSERT INTO departamentos VALUES (20,'INVESTIGACIÓN','MADRID')";
-            String queryInsert3 = "INSERT INTO departamentos VALUES (30,'VENTAS','BARCELONA')";
-            String queryInsert4 = "INSERT INTO departamentos VALUES (40,'PRODUCCIÓN','BILBAO')";
-            resultadoInsert1 = sentencia.executeUpdate(queryInsert1);
-            JOptionPane.showMessageDialog(null, "Información insertada correctamente. Código: ." +resultadoInsert1);
-            resultadoInsert2 = sentencia.executeUpdate(queryInsert2);
-            JOptionPane.showMessageDialog(null, "Información insertada correctamente. Código: ." +resultadoInsert2);
-            resultadoInsert3 = sentencia.executeUpdate(queryInsert3);
-            JOptionPane.showMessageDialog(null, "Información insertada correctamente. Código: ." +resultadoInsert3);
-            resultadoInsert4 = sentencia.executeUpdate(queryInsert4);
-            JOptionPane.showMessageDialog(null, "Información insertada correctamente. Código: ." +resultadoInsert4);
+            
+            String queryInsertDepar1 = "INSERT INTO departamentos VALUES (10,'CONTABILIDAD','SEVILLA')";
+            String queryInsertDepar2 = "INSERT INTO departamentos VALUES (20,'INVESTIGACIÓN','MADRID')";
+            String queryInsertDepar3 = "INSERT INTO departamentos VALUES (30,'VENTAS','BARCELONA')";
+            String queryInsertDepar4 = "INSERT INTO departamentos VALUES (40,'PRODUCCIÓN','BILBAO')";
+            sentencia.executeUpdate(queryInsertDepar1);
+            sentencia.executeUpdate(queryInsertDepar2);
+            sentencia.executeUpdate(queryInsertDepar3);
+            sentencia.executeUpdate(queryInsertDepar4);
+            
+            String queryInsertEmple1 = "INSERT INTO empleados VALUES (7369,'SANCHEZ','EMPLEADO',7902,'1990-12-17',1040,NULL,20)";
+            String queryInsertEmple2 = "INSERT INTO empleados VALUES (7499,'ARROYO','VENDEDOR',7698,'1990-02-20',1500,390,30)";
+            String queryInsertEmple3 = "INSERT INTO empleados VALUES (7521,'SALA','VENDEDOR',7698,'1991-02-22',1625,650,30)";
+            sentencia.executeUpdate(queryInsertEmple1);
+            sentencia.executeUpdate(queryInsertEmple2);
+            sentencia.executeUpdate(queryInsertEmple3);
+            
+            JOptionPane.showMessageDialog(null, "Información insertada correctamente.");
         }
         catch(SQLException e)
         {
-            JOptionPane.showMessageDialog(null, "Error al editar tabla. Código: ."+resultadoInsert1);
-            JOptionPane.showMessageDialog(null, "Error al editar tabla. Código: ."+resultadoInsert2);
-            JOptionPane.showMessageDialog(null, "Error al editar tabla. Código: ."+resultadoInsert3);
-            JOptionPane.showMessageDialog(null, "Error al editar tabla. Código: ."+resultadoInsert4);
+            JOptionPane.showMessageDialog(null, "Error al editar tabla.");
         }
     }//GEN-LAST:event_btnInsertarDatosBDActionPerformed
 
     private void btnBorrarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarBDActionPerformed
         // TODO add your handling code here:
-        int resultadoDropDepar = 0;
-        int resultadoDropEmple = 0;
+        
         if(JOptionPane.showConfirmDialog(null, "¿Seguro que quieres borrar las tablas?") == 0)
         {
             try
             {
                 Statement sentencia = conexion.createStatement();
-                String queryDropDepar = "DROP TABLE departamentos";
-                String queryDropEmple = "DROP TABLE empleados";
-                resultadoDropDepar = sentencia.executeUpdate(queryDropDepar);
-                resultadoDropEmple = sentencia.executeUpdate(queryDropEmple);
-                JOptionPane.showMessageDialog(null, "Tabla borrada correctamente. Código: "+resultadoDropDepar);
-                JOptionPane.showMessageDialog(null, "Tabla borrada correctamente.Código: "+resultadoDropEmple);
+                String queryDropDepar = "DROP TABLE if exists empleados,departamentos";
+                sentencia.executeUpdate(queryDropDepar);
+                
+                JOptionPane.showMessageDialog(null, "Tablas borradas correctamente.");
             }
             catch(SQLException e)
             {
-                JOptionPane.showMessageDialog(null, "Error al borrar la tabla. Código: "+resultadoDropDepar);
-                JOptionPane.showMessageDialog(null, "Error al borrar la tabla. Código: "+resultadoDropEmple);
+                JOptionPane.showMessageDialog(null, "Error al borrar las tablas.");
             }
         }
     }//GEN-LAST:event_btnBorrarBDActionPerformed
@@ -1218,7 +1339,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo1","root","admin");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo1?useSSL=false&allowMultiQueries=true","root","admin");
             //sentencia = conexion.createStatement();
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -1270,10 +1391,13 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBorrarBD;
     private javax.swing.JButton btnBorrarEmple;
+    private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnConfirmarAceptar;
     private javax.swing.JButton btnConfirmarCancelar;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnCrearTablaBD;
+    private javax.swing.JButton btnExecute;
+    private javax.swing.JButton btnInfoBBDD;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnInsertEmple;
     private javax.swing.JButton btnInsertar;
@@ -1282,6 +1406,8 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnModif;
     private javax.swing.JButton btnModifEmple;
     private javax.swing.JButton btnPrimero;
+    private javax.swing.JButton btnProcedim;
+    private javax.swing.JButton btnScripts;
     private javax.swing.JButton btnSig;
     private javax.swing.JButton btnUlt;
     private javax.swing.JTextField campoApellidoEmple;
@@ -1294,9 +1420,6 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboDirectorEmple;
     private javax.swing.JLabel etiqIdDepar;
     private javax.swing.JLabel etiquetaGestion;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1306,6 +1429,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAdministracion;
     private javax.swing.JPanel panelBusquedaBBDD;
     private javax.swing.JPanel panelConfirmar;
@@ -1321,9 +1445,11 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel tabDepartamentos;
     private javax.swing.JPanel tabEmpleados;
     private javax.swing.JPanel tabPrincipal;
+    private javax.swing.JPanel tabScripts;
     private javax.swing.JTextField textIdDepart;
     private javax.swing.JTextField textLocDepar;
     private javax.swing.JTextField textNombreDepar;
+    private javax.swing.JTextArea ventanaSeleccion;
     // End of variables declaration//GEN-END:variables
 
     
