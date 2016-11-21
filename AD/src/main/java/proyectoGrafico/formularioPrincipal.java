@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -110,6 +112,23 @@ public class formularioPrincipal extends javax.swing.JFrame {
         ventanaSeleccion = new javax.swing.JTextArea();
         btnExecute = new javax.swing.JButton();
         btnBrowse = new javax.swing.JButton();
+        tabInfoBBDD = new javax.swing.JPanel();
+        etiqInfoBD = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaInfoBD = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaInfoSobreTabla = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaInfoDepar = new javax.swing.JTable();
+        labelClavePrimariaDepar = new javax.swing.JLabel();
+        labelClaveAjenaDepar = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaInfoEmple = new javax.swing.JTable();
+        labelClavePrimariaEmple = new javax.swing.JLabel();
+        labelClaveAjenaEmple = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -212,6 +231,11 @@ public class formularioPrincipal extends javax.swing.JFrame {
         btnProcedim.setText("Ejecución Procedimientos");
 
         btnInfoBBDD.setText("Información Base Datos");
+        btnInfoBBDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoBBDDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMantenimientoDiarioPpalLayout = new javax.swing.GroupLayout(panelMantenimientoDiarioPpal);
         panelMantenimientoDiarioPpal.setLayout(panelMantenimientoDiarioPpalLayout);
@@ -487,7 +511,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addComponent(btnConfirmarAceptar)
                 .addGap(18, 18, 18)
                 .addComponent(btnConfirmarCancelar)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tabDepartamentosLayout = new javax.swing.GroupLayout(tabDepartamentos);
@@ -764,10 +788,145 @@ public class formularioPrincipal extends javax.swing.JFrame {
                 .addGroup(tabScriptsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExecute)
                     .addComponent(btnBrowse))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         panelTab.addTab("Scripts", tabScripts);
+
+        tabInfoBBDD.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tabInfoBBDDComponentShown(evt);
+            }
+        });
+
+        etiqInfoBD.setText("Información sobre la base de datos");
+
+        tablaInfoBD.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Driver", "URL", "Usuario"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaInfoBD);
+
+        jLabel10.setText("Información sobre las tablas");
+
+        tablaInfoSobreTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Catálogo", "Esquema", "Tabla", "Tipo"
+            }
+        ));
+        jScrollPane3.setViewportView(tablaInfoSobreTabla);
+
+        jLabel11.setText("Información sobre la tabla Departamentos");
+
+        tablaInfoDepar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "NombreColumna", "Tipo", "Tamaño", "¿Es null?"
+            }
+        ));
+        jScrollPane4.setViewportView(tablaInfoDepar);
+
+        labelClavePrimariaDepar.setText("Clave primaria: (");
+
+        labelClaveAjenaDepar.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        labelClaveAjenaDepar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelClaveAjenaDepar.setText("Información sobre claves ajenas");
+
+        jLabel12.setText("Información sobre la tabla Empleados");
+
+        tablaInfoEmple.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "NombreColumna", "Tipo", "Tamaño", "¿Es null?"
+            }
+        ));
+        jScrollPane5.setViewportView(tablaInfoEmple);
+
+        labelClavePrimariaEmple.setText("Clave primaria: (");
+
+        labelClaveAjenaEmple.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        labelClaveAjenaEmple.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelClaveAjenaEmple.setText("Información sobre claves ajenas");
+
+        javax.swing.GroupLayout tabInfoBBDDLayout = new javax.swing.GroupLayout(tabInfoBBDD);
+        tabInfoBBDD.setLayout(tabInfoBBDDLayout);
+        tabInfoBBDDLayout.setHorizontalGroup(
+            tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInfoBBDDLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane4)
+                    .addComponent(labelClaveAjenaDepar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5)
+                    .addGroup(tabInfoBBDDLayout.createSequentialGroup()
+                        .addGroup(tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(etiqInfoBD)
+                            .addComponent(jLabel10)
+                            .addGroup(tabInfoBBDDLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(64, 64, 64)
+                                .addComponent(labelClavePrimariaEmple))
+                            .addGroup(tabInfoBBDDLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(39, 39, 39)
+                                .addComponent(labelClavePrimariaDepar)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(labelClaveAjenaEmple, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        tabInfoBBDDLayout.setVerticalGroup(
+            tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabInfoBBDDLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(etiqInfoBD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(labelClavePrimariaDepar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelClaveAjenaDepar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tabInfoBBDDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(labelClavePrimariaEmple))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelClaveAjenaEmple)
+                .addGap(346, 346, 346))
+        );
+
+        panelTab.addTab("Info BD", tabInfoBBDD);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -781,7 +940,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelTab)
+                .addComponent(panelTab, javax.swing.GroupLayout.PREFERRED_SIZE, 499, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1261,6 +1420,159 @@ public class formularioPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBorrarBDActionPerformed
+
+    private void btnInfoBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoBBDDActionPerformed
+        // TODO add your handling code here:
+        panelTab.setSelectedComponent(tabInfoBBDD);
+    }//GEN-LAST:event_btnInfoBBDDActionPerformed
+
+    private void tabInfoBBDDComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabInfoBBDDComponentShown
+        // TODO add your handling code here:
+        try
+        {
+            DatabaseMetaData dbmd = conexion.getMetaData();
+            
+            tablaInfoBD.setEnabled(Boolean.FALSE);
+            tablaInfoBD.setAutoscrolls(Boolean.FALSE);
+            
+            tablaInfoBD.setValueAt(dbmd.getDatabaseProductName(),0,0);
+            tablaInfoBD.setValueAt(dbmd.getDriverName(),0,1);
+            tablaInfoBD.setValueAt(dbmd.getURL(),0,2);
+            tablaInfoBD.setValueAt(dbmd.getUserName(),0,3);
+            
+            // información sobre tablas
+            ResultSet resultadoTablas = dbmd.getTables("bbdd_ejemplo", null, "%", null);
+                       
+            resultadoTablas.last();
+            int rows = resultadoTablas.getRow();
+            resultadoTablas.beforeFirst();
+            DefaultTableModel dftm = (DefaultTableModel)tablaInfoSobreTabla.getModel();
+            dftm.setRowCount(rows);
+            tablaInfoSobreTabla.setModel(dftm);
+            
+            int filas = 0, propiedad = 1;
+            while(resultadoTablas.next())
+            {
+                for(propiedad = 1; propiedad < 5; propiedad++)
+                {
+                    tablaInfoSobreTabla.setValueAt(resultadoTablas.getString(propiedad), filas, propiedad - 1);
+                }
+                filas++;    
+            }
+            
+            // INFORMACIÓN SOBRE TABLA DEPARTAMENTOS
+            resultadoTablas = dbmd.getColumns(null, "bbdd_ejemplo", "departamentos", "%");
+            resultadoTablas.last();
+            rows = resultadoTablas.getRow();
+            resultadoTablas.beforeFirst();
+            dftm = (DefaultTableModel)tablaInfoDepar.getModel();
+            dftm.setRowCount(rows);
+            tablaInfoDepar.setModel(dftm);
+            
+            filas = 0;
+            while(resultadoTablas.next())
+            {
+                tablaInfoDepar.setValueAt(resultadoTablas.getString("COLUMN_NAME"),filas, 0);
+                tablaInfoDepar.setValueAt(resultadoTablas.getString("TYPE_NAME"),filas, 1);
+                tablaInfoDepar.setValueAt(resultadoTablas.getString("COLUMN_SIZE"),filas, 2);
+                tablaInfoDepar.setValueAt(resultadoTablas.getString("IS_NULLABLE"),filas, 3);
+                filas++;
+            }
+            
+            // OBTENER CLAVE PRIMARIA DEPARTAMENTOS
+            String pkDep = labelClavePrimariaDepar.getText();
+            resultadoTablas = dbmd.getPrimaryKeys("bbdd_ejemplo","bbdd_ejemplo","departamentos");
+            
+            String separador = ",";
+            while(resultadoTablas.next())
+            {
+                if(resultadoTablas.isLast())
+                {
+                    pkDep = pkDep + resultadoTablas.getString("COLUMN_NAME") + ")";
+                }
+                else
+                {
+                    pkDep = pkDep + resultadoTablas.getString("COLUMN_NAME")+ separador;
+                }
+            }
+            labelClavePrimariaDepar.setText(pkDep);
+            
+            // OBTENER INFORMACIÓN CLAVE AJENA DEPARTAMENTOS
+            resultadoTablas = dbmd.getExportedKeys("bbdd_ejemplo","bbdd_ejemplo","departamentos");
+            StringBuilder constructorString = new StringBuilder();
+            
+            while(resultadoTablas.next())
+            {
+                String fk_name = resultadoTablas.getString("FKCOLUMN_NAME");
+                String pk_name = resultadoTablas.getString("PKCOLUMN_NAME");
+                String pk_tablename = resultadoTablas.getString("PKTABLE_NAME");
+                String fk_tablename = resultadoTablas.getString("FKTABLE_NAME");
+                
+                constructorString.append("La tabla "+pk_tablename+" tiene un campo "+fk_name+" que referencia al campo "+pk_name+" de la tabla "+fk_tablename);
+                constructorString.append(System.getProperty("line.separator"));
+            }
+            labelClaveAjenaDepar.setText(constructorString.toString());
+            
+            // INFORMACIÓN SOBRE TABLA EMPLEADOS
+            resultadoTablas = dbmd.getColumns(null, "bbdd_ejemplo","empleados","%");
+            resultadoTablas.last();
+            rows = resultadoTablas.getRow();
+            resultadoTablas.beforeFirst();
+            dftm = (DefaultTableModel) tablaInfoEmple.getModel();
+            dftm.setRowCount(rows);
+            tablaInfoEmple.setModel(dftm);
+            
+            filas = 0;
+            while(resultadoTablas.next())
+            {
+                tablaInfoEmple.setValueAt(resultadoTablas.getString("COLUMN_NAME"),filas, 0);
+                tablaInfoEmple.setValueAt(resultadoTablas.getString("TYPE_NAME"),filas, 1);
+                tablaInfoEmple.setValueAt(resultadoTablas.getString("COLUMN_SIZE"),filas, 2);
+                tablaInfoEmple.setValueAt(resultadoTablas.getString("IS_NULLABLE"),filas, 3);
+                filas++;
+            }
+            
+            // OBTENER CLAVE PRIMARIA EMPLEADOS
+            String pkEmple = labelClavePrimariaEmple.getText();
+            resultadoTablas = dbmd.getPrimaryKeys("bbdd_ejemplo","bbdd_ejemplo","empleados");
+            
+            String separator = ",";
+            while(resultadoTablas.next())
+            {
+                if(resultadoTablas.isLast())
+                {
+                    pkEmple = pkEmple + resultadoTablas.getString("COLUMN_NAME") + ")";
+                }
+                else
+                {
+                    pkEmple = pkEmple + resultadoTablas.getString("COLUMN_NAME")+ separador;
+                }
+            }
+            labelClavePrimariaEmple.setText(pkEmple);
+            
+            // OBTENER INFORMACIÓN CLAVE AJENA EMPLEADOS
+            resultadoTablas = dbmd.getImportedKeys("bbdd_ejemplo", "bbdd_ejemplo", "empleados");
+            StringBuilder constructorFKEmple = new StringBuilder();
+            
+            while(resultadoTablas.next())
+            {
+                String fk_name = resultadoTablas.getString("FKCOLUMN_NAME");
+                String pk_name = resultadoTablas.getString("PKCOLUMN_NAME");
+                String pk_tablename = resultadoTablas.getString("PKTABLE_NAME");
+                String fk_tablename = resultadoTablas.getString("FKTABLE_NAME");
+                
+                constructorFKEmple.append("La tabla "+fk_tablename+" tiene un campo "+fk_name+" que referencia al campo "+pk_name+" de la tabla "+pk_tablename);
+                constructorFKEmple.append(System.getProperty("line.separator"));
+            }
+            labelClaveAjenaEmple.setText(constructorFKEmple.toString());
+            
+            
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, "Error SQL: "+e.getMessage());
+        }
+    }//GEN-LAST:event_tabInfoBBDDComponentShown
   
     private void mostrarCamposEmpleados()
     {
@@ -1339,7 +1651,7 @@ public class formularioPrincipal extends javax.swing.JFrame {
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo1?useSSL=false&allowMultiQueries=true","root","admin");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/bbdd_ejemplo?useSSL=false&allowMultiQueries=true","root","admin");
             //sentencia = conexion.createStatement();
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -1419,8 +1731,12 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboDepartamentoEmple;
     private javax.swing.JComboBox<String> comboDirectorEmple;
     private javax.swing.JLabel etiqIdDepar;
+    private javax.swing.JLabel etiqInfoBD;
     private javax.swing.JLabel etiquetaGestion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1430,6 +1746,14 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel labelClaveAjenaDepar;
+    private javax.swing.JLabel labelClaveAjenaEmple;
+    private javax.swing.JLabel labelClavePrimariaDepar;
+    private javax.swing.JLabel labelClavePrimariaEmple;
     private javax.swing.JPanel panelAdministracion;
     private javax.swing.JPanel panelBusquedaBBDD;
     private javax.swing.JPanel panelConfirmar;
@@ -1444,8 +1768,13 @@ public class formularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelTab;
     private javax.swing.JPanel tabDepartamentos;
     private javax.swing.JPanel tabEmpleados;
+    private javax.swing.JPanel tabInfoBBDD;
     private javax.swing.JPanel tabPrincipal;
     private javax.swing.JPanel tabScripts;
+    private javax.swing.JTable tablaInfoBD;
+    private javax.swing.JTable tablaInfoDepar;
+    private javax.swing.JTable tablaInfoEmple;
+    private javax.swing.JTable tablaInfoSobreTabla;
     private javax.swing.JTextField textIdDepart;
     private javax.swing.JTextField textLocDepar;
     private javax.swing.JTextField textNombreDepar;
@@ -1455,6 +1784,4 @@ public class formularioPrincipal extends javax.swing.JFrame {
     
     Connection conexion;
     ResultSet result;
-    
-    
 }
